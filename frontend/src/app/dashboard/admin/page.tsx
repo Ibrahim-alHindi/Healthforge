@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
     if (!authLoading) {
       if (!user) {
         router.push('/login');
-      } else if (user.role !== 'admin') {
+      } else if (user.role !== 'admin' && user.role !== 'auditor') {
         router.push('/');
       } else {
         loadData();

@@ -36,7 +36,7 @@ export default function HospitalDashboardPage() {
     if (!authLoading) {
       if (!user) {
         router.push('/login');
-      } else if (user.role !== 'hospital') {
+      } else if (!['hospital_admin', 'pharmacist', 'admin', 'auditor'].includes(user.role)) {
         router.push('/');
       } else {
         loadData();

@@ -35,7 +35,7 @@ export default function WarehouseDashboardPage() {
     if (!authLoading) {
       if (!user) {
         router.push('/login');
-      } else if (user.role !== 'warehouse') {
+      } else if (!['warehouse_manager', 'admin', 'auditor'].includes(user.role)) {
         router.push('/');
       } else {
         loadData();

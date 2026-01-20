@@ -25,21 +25,8 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const user = await login(email, password);
-      
-      switch (user.role) {
-        case 'admin':
-          router.push('/dashboard/admin');
-          break;
-        case 'hospital':
-          router.push('/dashboard/hospital');
-          break;
-        case 'warehouse':
-          router.push('/dashboard/warehouse');
-          break;
-        default:
-          setError('Invalid user role');
-      }
+      await login({ email, password });
+      // Login function handles redirect automatically
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
