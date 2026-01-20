@@ -65,7 +65,7 @@ export default function AlertBadge({ alert, onAcknowledge, onResolve }: AlertBad
             <p className={`text-sm ${config.text} mb-2`}>{alert.message}</p>
             <div className="flex items-center space-x-4 text-xs text-gray-600">
               <span>ID: {alert.id}</span>
-              <span>{formatDate(alert.createdAt)}</span>
+              <span>{formatDate(alert.created_at)}</span>
             </div>
           </div>
         </div>

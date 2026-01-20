@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { LogOut, Menu, X, User } from 'lucide-react';
 
@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-2 text-gray-700">
               <User className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="text-sm font-medium">{user?.name}</span>
+                <span className="text-sm font-medium">{user?.full_name}</span>
                 <span className="text-xs text-gray-500 capitalize">{user?.role}</span>
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-2 text-gray-700 pb-3 border-b">
               <User className="w-5 h-5" />
               <div className="flex flex-col">
-                <span className="text-sm font-medium">{user?.name}</span>
+                <span className="text-sm font-medium">{user?.full_name}</span>
                 <span className="text-xs text-gray-500 capitalize">{user?.role}</span>
               </div>
             </div>
