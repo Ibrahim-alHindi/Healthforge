@@ -76,26 +76,26 @@ export default function HospitalDashboardPage() {
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <DashboardCard
-            title="Total Stock Value"
-            value={formatCurrency(data.overview.total_stock_value)}
+            title="Total Drugs"
+            value={data.stockSummary.total_drugs}
             icon={DollarSign}
             color="success"
           />
           <DashboardCard
             title="Low Stock Items"
-            value={data.overview.low_stock_items}
+            value={data.stockSummary.low_stock_count}
             icon={AlertTriangle}
             color="warning"
           />
           <DashboardCard
             title="Near Expiry (30 days)"
-            value={data.overview.near_expiry_items}
+            value={data.stockSummary.near_expiry_count}
             icon={Clock}
             color="danger"
           />
           <DashboardCard
             title="Today's Consumption"
-            value={data.overview.todays_consumption}
+            value={data.todayConsumption.length}
             icon={TrendingDown}
             color="primary"
           />
@@ -123,7 +123,7 @@ export default function HospitalDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.low_stock_items.map((item) => (
+                {data.lowStockItems.map((item) => (
                   <tr key={item.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {item.name}
@@ -156,7 +156,7 @@ export default function HospitalDashboardPage() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="quantity" stroke="#3B82F6" strokeWidth={2} name="Consumption" />
+              <Line type="monotone" dataKey="total_quantity" stroke="#3B82F6" strokeWidth={2} name="Consumption" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -183,7 +183,7 @@ export default function HospitalDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.near_expiry_items.map((item, index) => (
+                {data.nearExpiryItems.map((item, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {item.name}

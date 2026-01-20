@@ -76,25 +76,25 @@ export default function WarehouseDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <DashboardCard
             title="Total Stock Value"
-            value={formatCurrency(data.overview.total_stock_value)}
+            value={formatCurrency(data.stockSummary.total_stock_value)}
             icon={DollarSign}
             color="success"
           />
           <DashboardCard
             title="Incoming Shipments"
-            value={data.overview.incoming_shipments}
+            value={data.incomingShipments.length}
             icon={Package}
             color="primary"
           />
           <DashboardCard
-            title="Near Expiry (30 days)"
-            value={data.overview.near_expiry_items}
+            title="Near Expiry (60 days)"
+            value={data.stockSummary.near_expiry_count}
             icon={Clock}
             color="warning"
           />
           <DashboardCard
             title="Total Drugs"
-            value={data.overview.total_drugs}
+            value={data.stockSummary.total_drugs}
             icon={Pill}
             color="success"
           />
@@ -122,7 +122,7 @@ export default function WarehouseDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.incoming_shipments.map((shipment) => (
+                {data.incomingShipments.map((shipment) => (
                   <tr key={shipment.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {shipment.shipment_number}
@@ -149,7 +149,7 @@ export default function WarehouseDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Transactions</h2>
           <div className="space-y-4">
-            {data.recent_transactions.map((transaction) => (
+            {data.recentTransactions.map((transaction) => (
               <div
                 key={transaction.id}
                 className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
@@ -193,7 +193,7 @@ export default function WarehouseDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.near_expiry_items.map((item, index) => (
+                {data.nearExpiryItems.map((item, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {item.name}

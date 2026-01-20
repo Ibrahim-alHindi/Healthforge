@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="quantity" stroke="#3B82F6" strokeWidth={2} />
+                <Line type="monotone" dataKey="total_quantity" stroke="#3B82F6" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -157,7 +157,7 @@ export default function AdminDashboardPage() {
                 <YAxis dataKey="name" type="category" width={100} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="quantity" fill="#10B981" />
+                <Bar dataKey="total_consumed" fill="#10B981" />
               </BarChart>
             </ResponsiveContainer>
           </div>
