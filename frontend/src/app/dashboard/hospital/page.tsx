@@ -77,25 +77,25 @@ export default function HospitalDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <DashboardCard
             title="Total Stock Value"
-            value={formatCurrency(data.overview.totalStockValue)}
+            value={formatCurrency(data.overview.total_stock_value)}
             icon={DollarSign}
             color="success"
           />
           <DashboardCard
             title="Low Stock Items"
-            value={data.overview.lowStockItems}
+            value={data.overview.low_stock_items}
             icon={AlertTriangle}
             color="warning"
           />
           <DashboardCard
             title="Near Expiry (30 days)"
-            value={data.overview.nearExpiryItems}
+            value={data.overview.near_expiry_items}
             icon={Clock}
             color="danger"
           />
           <DashboardCard
             title="Today's Consumption"
-            value={data.overview.todaysConsumption}
+            value={data.overview.todays_consumption}
             icon={TrendingDown}
             color="primary"
           />
@@ -123,16 +123,16 @@ export default function HospitalDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.lowStockItems.map((item) => (
-                  <tr key={item.drugId}>
+                {data.low_stock_items.map((item) => (
+                  <tr key={item.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {item.drugName}
+                      {item.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {item.currentStock}
+                      {item.available_quantity}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {item.reorderLevel}
+                      {item.reorder_threshold}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
@@ -150,7 +150,7 @@ export default function HospitalDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Weekly Consumption Trend</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data.weeklyConsumption}>
+            <LineChart data={data.weeklyTrend}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
@@ -183,19 +183,19 @@ export default function HospitalDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.nearExpiryItems.map((item, index) => (
+                {data.near_expiry_items.map((item, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {item.drugName}
+                      {item.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {item.batchNumber}
+                      {item.batch_number}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {item.quantity}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">
-                      {formatDate(item.expiryDate)}
+                      {formatDate(item.expiry_date)}
                     </td>
                   </tr>
                 ))}
@@ -208,10 +208,10 @@ export default function HospitalDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Active Alerts</h2>
           <div className="space-y-4">
-            {data.activeAlerts.length === 0 ? (
+            {data.alerts.length === 0 ? (
               <p className="text-gray-500 text-center py-4">No active alerts</p>
             ) : (
-              data.activeAlerts.map((alert) => (
+              data.alerts.map((alert) => (
                 <AlertBadge key={alert.id} alert={alert} />
               ))
             )}

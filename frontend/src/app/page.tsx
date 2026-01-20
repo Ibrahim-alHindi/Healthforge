@@ -15,12 +15,14 @@ export default function Home() {
       } else {
         switch (user.role) {
           case 'admin':
+          case 'auditor':
             router.push('/dashboard/admin');
             break;
-          case 'hospital':
+          case 'hospital_admin':
+          case 'pharmacist':
             router.push('/dashboard/hospital');
             break;
-          case 'warehouse':
+          case 'warehouse_manager':
             router.push('/dashboard/warehouse');
             break;
           default:

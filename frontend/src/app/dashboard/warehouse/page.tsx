@@ -76,25 +76,25 @@ export default function WarehouseDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <DashboardCard
             title="Total Stock Value"
-            value={formatCurrency(data.overview.totalStockValue)}
+            value={formatCurrency(data.overview.total_stock_value)}
             icon={DollarSign}
             color="success"
           />
           <DashboardCard
             title="Incoming Shipments"
-            value={data.overview.incomingShipments}
+            value={data.overview.incoming_shipments}
             icon={Package}
             color="primary"
           />
           <DashboardCard
             title="Near Expiry (30 days)"
-            value={data.overview.nearExpiryItems}
+            value={data.overview.near_expiry_items}
             icon={Clock}
             color="warning"
           />
           <DashboardCard
             title="Total Drugs"
-            value={data.overview.totalDrugs}
+            value={data.overview.total_drugs}
             icon={Pill}
             color="success"
           />
@@ -122,16 +122,16 @@ export default function WarehouseDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.incomingShipments.map((shipment) => (
-                  <tr key={shipment.shipmentId}>
+                {data.incoming_shipments.map((shipment) => (
+                  <tr key={shipment.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {shipment.shipmentId}
+                      {shipment.shipment_number}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {shipment.vendorName}
+                      {shipment.vendor_name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {formatDate(shipment.expectedDate)}
+                      {formatDate(shipment.expected_delivery_date)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
@@ -149,22 +149,22 @@ export default function WarehouseDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Transactions</h2>
           <div className="space-y-4">
-            {data.recentTransactions.map((transaction) => (
+            {data.recent_transactions.map((transaction) => (
               <div
-                key={transaction.transactionId}
+                key={transaction.id}
                 className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
               >
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{transaction.drugName}</p>
+                  <p className="text-sm font-medium text-gray-900">{transaction.drug_name}</p>
                   <p className="text-xs text-gray-500 mt-1">
-                    {transaction.type === 'IN' ? 'Received' : 'Dispatched'} • {formatDate(transaction.date)}
+                    {transaction.transaction_type === 'IN' ? 'Received' : 'Dispatched'} • {formatDate(transaction.created_at)}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className={`text-sm font-semibold ${transaction.type === 'IN' ? 'text-green-600' : 'text-red-600'}`}>
-                    {transaction.type === 'IN' ? '+' : '-'}{transaction.quantity}
+                  <p className={`text-sm font-semibold ${transaction.transaction_type === 'IN' ? 'text-green-600' : 'text-red-600'}`}>
+                    {transaction.transaction_type === 'IN' ? '+' : '-'}{transaction.quantity}
                   </p>
-                  <p className="text-xs text-gray-500">Batch: {transaction.batchNumber}</p>
+                  <p className="text-xs text-gray-500">Batch: {transaction.batch_number}</p>
                 </div>
               </div>
             ))}
@@ -193,19 +193,19 @@ export default function WarehouseDashboardPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data.nearExpiryItems.map((item, index) => (
+                {data.near_expiry_items.map((item, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {item.drugName}
+                      {item.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {item.batchNumber}
+                      {item.batch_number}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {item.quantity}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">
-                      {formatDate(item.expiryDate)}
+                      {formatDate(item.expiry_date)}
                     </td>
                   </tr>
                 ))}
@@ -218,10 +218,10 @@ export default function WarehouseDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Active Alerts</h2>
           <div className="space-y-4">
-            {data.activeAlerts.length === 0 ? (
+            {data.alerts.length === 0 ? (
               <p className="text-gray-500 text-center py-4">No active alerts</p>
             ) : (
-              data.activeAlerts.map((alert) => (
+              data.alerts.map((alert) => (
                 <AlertBadge key={alert.id} alert={alert} />
               ))
             )}

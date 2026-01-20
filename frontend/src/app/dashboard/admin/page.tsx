@@ -94,37 +94,37 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <DashboardCard
             title="Total Hospitals"
-            value={data.overview.totalHospitals}
+            value={data.summary.total_hospitals}
             icon={Building2}
             color="primary"
           />
           <DashboardCard
             title="Total Warehouses"
-            value={data.overview.totalWarehouses}
+            value={data.summary.total_warehouses}
             icon={Warehouse}
             color="success"
           />
           <DashboardCard
             title="Total Drugs"
-            value={data.overview.totalDrugs}
+            value={data.summary.total_drugs}
             icon={Pill}
             color="warning"
           />
           <DashboardCard
             title="Total Vendors"
-            value={data.overview.totalVendors}
+            value={data.summary.total_vendors}
             icon={Users}
             color="primary"
           />
           <DashboardCard
             title="Active Shipments"
-            value={data.overview.activeShipments}
+            value={data.summary.active_shipments}
             icon={Package}
             color="success"
           />
           <DashboardCard
             title="Critical Alerts"
-            value={data.overview.criticalAlerts}
+            value={data.summary.active_alerts}
             icon={AlertTriangle}
             color="danger"
           />
@@ -151,7 +151,7 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Top 10 Consumed Drugs</h2>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={data.topConsumedDrugs} layout="vertical">
+              <BarChart data={data.topDrugs} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
                 <YAxis dataKey="name" type="category" width={100} />
@@ -186,26 +186,26 @@ export default function AdminDashboardPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {data.vendorPerformance.map((vendor) => (
-                  <tr key={vendor.vendorId}>
+                  <tr key={vendor.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {vendor.vendorName}
+                      {vendor.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {vendor.totalOrders}
+                      {vendor.total_shipments}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {vendor.onTimeDelivery}%
+                      {vendor.on_time_percentage}%
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-1 bg-gray-200 rounded-full h-2 mr-2">
                           <div
                             className="bg-blue-600 h-2 rounded-full"
-                            style={{ width: `${vendor.performanceScore}%` }}
+                            style={{ width: `${vendor.on_time_percentage}%` }}
                           ></div>
                         </div>
                         <span className="text-sm font-medium text-gray-700">
-                          {vendor.performanceScore}%
+                          {vendor.on_time_percentage}%
                         </span>
                       </div>
                     </td>
@@ -220,10 +220,10 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Critical Alerts</h2>
           <div className="space-y-4">
-            {data.criticalAlertsList.length === 0 ? (
+            {data.alertsSummary.length === 0 ? (
               <p className="text-gray-500 text-center py-4">No critical alerts</p>
             ) : (
-              data.criticalAlertsList.map((alert) => (
+              data.alertsSummary.map((alert) => (
                 <AlertBadge key={alert.id} alert={alert} />
               ))
             )}
